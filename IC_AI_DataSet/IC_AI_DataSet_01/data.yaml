@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Ball']
+
+roboflow:
+  workspace: eric-tsang
+  project: ic382-0kvni
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/eric-tsang/ic382-0kvni/dataset/1

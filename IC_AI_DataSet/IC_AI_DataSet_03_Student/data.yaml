@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 6
+names: ['ball_green', 'ball_red', 'gate_orange', 'gate_white', 'stop_blue', 'stop_yellow']
+
+roboflow:
+  workspace: eie3360lab-vaofz
+  project: ballz-iw5ck
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/eie3360lab-vaofz/ballz-iw5ck/dataset/3
