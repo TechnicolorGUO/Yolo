@@ -128,7 +128,7 @@ while True:
     # Stop_Yellow
     
     m_Line_A_Color = (167, 84, 255)
-    m_Line_A_XD =280  #280
+    m_Line_A_XD =  150 #280
     m_Line_A_X0 = int(1280/2)
     m_Line_A_Y0 = int(720/2)
     m_Line_A_X1 = int(m_Line_A_X0-m_Line_A_XD)
@@ -138,13 +138,13 @@ while True:
     end_point   = (m_Line_A_X1, 200)    # Ending point (x, y)
     color = (255, 0, 0)               # Line color (BGR): Blue
     thickness = 1                     # Line thickness
-    cv2.line(frame, start_point, end_point, m_Line_A_Color, thickness)
+    #cv2.line(frame, start_point, end_point, m_Line_A_Color, thickness)
 
     start_point = (m_Line_A_X2, 0)      # Starting point (x, y)
     end_point   = (m_Line_A_X2, 200)    # Ending   point (x, y)
     color = (255, 0, 0)               # Line color (BGR): Blue
     thickness = 1                     # Line thickness
-    cv2.line(frame, start_point, end_point, m_Line_A_Color, thickness)
+    #cv2.line(frame, start_point, end_point, m_Line_A_Color, thickness)
 
     """m_Line_C_Color = (0, 84, 255)
     m_Line_C_XD =280  #280
@@ -175,13 +175,13 @@ while True:
     end_point   = (m_Line_B_X1, 200)    # Ending point (x, y)
     color = (255, 0, 0)               # Line color (BGR): Blue
     thickness = 1                     # Line thickness
-    cv2.line(frame, start_point, end_point, m_Line_B_Color, thickness)
+    #cv2.line(frame, start_point, end_point, m_Line_B_Color, thickness)
 
     start_point = (m_Line_B_X2, 0)      # Starting point (x, y)
     end_point   = (m_Line_B_X2, 200)    # Ending   point (x, y)
     color = (255, 0, 0)               # Line color (BGR): Blue
     thickness = 1                     # Line thickness
-    cv2.line(frame, start_point, end_point, m_Line_B_Color, thickness)
+    #cv2.line(frame, start_point, end_point, m_Line_B_Color, thickness)
 
     # Convert the frame to RGB (YOLOv5 expects RGB input)
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -260,113 +260,7 @@ while True:
             m_Stop_Yellow_Size = m_Stop_Yellow_X_R - m_Stop_Yellow_X_L
             #print(m_Stop_Yellow_Size)
             if(name=='green_ball' or m_Action_Ball_Green_Step_01==1):
-                if(m_Action_Step_02==0 and m_Action_Ball_Green_Step_01==0):
-                    if((m_Object_Center_X<m_Line_B_X1)and (m_Action_Ball_Green_Step_01==0)):
-                        m_Line_B_XD = 80
-                        send_data('4') #4 #a
-                        # time.sleep(0.1)
-                        # send_data("B")
-                        if time.time() - last_cmd_time[0] > cmd_interval:
-                            send_data('B')
-                            last_cmd_time[0] = time.time()
-                            print("stop left")
-                        print("finding green,turn left")
-                        
-                    elif((m_Line_B_X2<m_Object_Center_X) and (m_Action_Ball_Green_Step_01==0)):
-                        m_Line_B_XD = 80
-                        # while (m_Object_Center_X>640):
-                        send_data('6') #6 #d
-                        # time.sleep(0.1)
-                        # send_data("B")
-                        if time.time() - last_cmd_time[1] > cmd_interval:
-                            send_data('B')
-                            last_cmd_time[1] = time.time()
-                            print("stop left")
-                        print("finding green,turn right")
-                        
-                        
-                    else:
-                        width_green_ball = x2 - x1
-                        if(width_green_ball<(175) and (m_Action_Ball_Green_Step_01==0)):#250
-                            m_Line_B_XD = 150
-                            send_data('8') #8 #w
-                            
-                            print(width_green_ball)
-                            print("forward to green ball")
-                        elif(width_green_ball<(250) and width_green_ball>=(175) and (m_Action_Ball_Green_Step_01==0)):
-                            m_Line_B_XD = 80
-                            send_data('B')
-                            # time.sleep(0.05)
-                            # send_data('8') #8 #w
-                            if time.time() - last_cmd_time[4] > 0.05:
-                                send_data('8')
-                                last_cmd_time[4] = time.time()
-                                print("stop left")
-                            #time.sleep(0.1)
-
-                            print(width_green_ball)
-                            print("approach to reb ball")
-                        else:
-                            m_Action_Ball_Green_Step_01 = 1
-                            sleep_flag = 1
-                            if sleep_flag == 1:
-                                send_data('B')
-                                sleep_flag = 0
-                            print("I get green ball!")
-                            print("pink left", str(m_Line_A_X1))
-                            print("pink right", str(m_Line_A_X2))
-                            print("yellow center", str(m_Stop_Yellow_Center_X))
-
-                            if(m_Stop_Yellow_Center_X<m_Line_A_X1):
-                                send_data('4') #4 #a
-                                if time.time() - last_cmd_time[2] > 0.02:
-                                    send_data('B')
-                                    last_cmd_time[2] = time.time()
-                                    print("stop left")
-                                print("finding yellow gate,turn left")
-                                
-                                
-                            elif(m_Line_A_X2<m_Stop_Yellow_Center_X):
-                                send_data('6') #6 #d
-                                if time.time() - last_cmd_time[3] > 0.02:
-                                    send_data('B')
-                                    last_cmd_time[3] = time.time()
-                                    print("stop right")
-                                print("finding yellow gate,turn right")
-                                
-                                # send_data('B')
-                                # time.sleep(0.1)
-                            else:
-                                m_Stop_Yellow_Size = m_Stop_Yellow_X_R - m_Stop_Yellow_X_L
-                                m_Stop_Yellow_Size_Y = - m_Stop_Yellow_Y_T + m_Stop_Yellow_Y_B
-                                # print(m_Stop_Yellow_Size)
-                                print("The size of stop_Yellow is: " + str(m_Stop_Yellow_Size))   
-                                print("The size of stop_Yellow height is: " + str(m_Stop_Yellow_Size_Y))
-                                # send_data('B')  
-                                if(m_Stop_Yellow_Size<240):
-                                # if (m_Stop_Yellow_Size_Y < 140):
-                                    print("move forward to gate")
-                                    send_data('8') #8 #w
-                                    if time.time() - last_cmd_time[5] > 0.02:
-                                        send_data('B')
-                                        last_cmd_time[5] = time.time()
-                                        print("stop forward")
-                                    """time.sleep(3)
-                                    cv2.putText(frame,"END",(m_Line_B_X1+20, 20),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0, 255, 0),2,)
-                                    send_data('B')
-                                    print("stopped")"""
-                                    #m_Action_Step_01 = 999
-                                    #time.sleep(0.1)
-                                    # send_data('B')
-                
-                                else:
-                                    send_data('W')
-                                    time.sleep(0.5)
-                                    cv2.putText(frame,"END",(m_Line_B_X1+20, 20),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0, 255, 0),2,)
-                                    send_data('B')
-                                    print("END")
-                                    m_Line_B_XD = 150
-                                    m_Action_Step_02 = 999
+                pass
             elif(name=='red_ball' or m_Action_Ball_Red_Step_01==1):
                 if(m_Action_Step_01==0 and m_Action_Ball_Green_Step_01==0):
                     if((m_Object_Center_X<m_Line_B_X1)and (m_Action_Ball_Red_Step_01==0)):
@@ -401,12 +295,12 @@ while True:
                             
                             print(width_red_ball)
                             print("forward to red ball")
-                        elif(width_red_ball<(250) and width_red_ball>=(150) and (m_Action_Ball_Red_Step_01==0)):
-                            m_Line_B_XD = 80
+                        elif(width_red_ball<(300) and width_red_ball>=(150) and (m_Action_Ball_Red_Step_01==0)):
+                            m_Line_B_XD = 70
                             send_data('B')
-                            # time.sleep(0.05)
+                            # time.sleep(100)
                             # send_data('8') #8 #w
-                            if time.time() - last_cmd_time[4] > 0.05:
+                            if time.time() - last_cmd_time[4] > 0.1:
                                 send_data('8')
                                 last_cmd_time[4] = time.time()
                                 print("stop left")
@@ -416,30 +310,37 @@ while True:
                             print("approach to reb ball")
                         else:
                             m_Action_Ball_Red_Step_01 = 1
-                            sleep_flag = 1
-                            if sleep_flag == 1:
-                                send_data('B')
-                                sleep_flag = 0
+                            # sleep_flag = 1
+                            # if sleep_flag == 1:
+                            #     send_data('8')
+                            #     # time.sleep(0.1)
+                            #     sleep_flag = 0
                             print("I get red ball!")
                             print("pink left", str(m_Line_A_X1))
                             print("pink right", str(m_Line_A_X2))
                             print("blue center", str(m_Stop_Blue_Center_X))
 
                             if(m_Stop_Blue_Center_X<m_Line_A_X1):
+                                m_Line_A_XD = 100
                                 send_data('4') #4 #a
-                                if time.time() - last_cmd_time[2] > 0.05:
+                                # time.sleep(0.1)
+                                # send_data('B')
+                                if time.time() - last_cmd_time[2] > 0.1:
                                     send_data('B')
                                     last_cmd_time[2] = time.time()
-                                    print("stop left")
+                                    # print("stop left")
                                 print("finding blue gate,turn left")
                                 
                                 
-                            elif(m_Line_A_X2-60<m_Stop_Blue_Center_X):
+                            elif(m_Line_A_X2<m_Stop_Blue_Center_X):
+                                m_Line_A_XD = 100
                                 send_data('6') #6 #d
-                                if time.time() - last_cmd_time[3] > 0.05:
+                                # time.sleep(0.1)
+                                # send_data('B')                                
+                                if time.time() - last_cmd_time[3] > 0.1:
                                     send_data('B')
                                     last_cmd_time[3] = time.time()
-                                    print("stop right")
+                                    # print("stop right")
                                 print("finding blue gate,turn right")
                                 
                                 # send_data('B')
@@ -450,12 +351,13 @@ while True:
                                 # print(m_Stop_Blue_Size)
                                 print("The size of stop_blue is: " + str(m_Stop_Blue_Size))   
                                 print("The size of stop_blue height is: " + str(m_Stop_Blue_Size_Y))
-                                # send_data('B')  
-                                if(m_Stop_Blue_Size<280):
+                                # send_data('8')  
+                                if(m_Stop_Blue_Size<230):
+                                    m_Line_A_XD = 150
                                 # if (m_Stop_Blue_Size_Y < 140):
                                     print("move forward to gate")
                                     send_data('8') #8 #w
-                                    if time.time() - last_cmd_time[5] > 0.02:
+                                    if time.time() - last_cmd_time[5] > 0.1:
                                         send_data('B')
                                         last_cmd_time[5] = time.time()
                                         print("stop forward")
@@ -468,8 +370,9 @@ while True:
                                     # send_data('B')
                 
                                 else:
+                                    print("Shoooooooooot")
                                     send_data('W')
-                                    time.sleep(0.5)
+                                    time.sleep(0.4)
                                     cv2.putText(frame,"END",(m_Line_B_X1+20, 20),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0, 255, 0),2,)
                                     send_data('B')
                                     print("END")
