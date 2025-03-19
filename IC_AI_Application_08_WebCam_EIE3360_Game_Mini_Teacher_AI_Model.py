@@ -395,13 +395,13 @@ while True:
                         
                     else:
                         width_red_ball = x2 - x1
-                        if(width_red_ball<(175) and (m_Action_Ball_Red_Step_01==0)):#250
+                        if(width_red_ball<(150) and (m_Action_Ball_Red_Step_01==0)):#250
                             m_Line_B_XD = 150
                             send_data('8') #8 #w
                             
                             print(width_red_ball)
                             print("forward to red ball")
-                        elif(width_red_ball<(250) and width_red_ball>=(175) and (m_Action_Ball_Red_Step_01==0)):
+                        elif(width_red_ball<(250) and width_red_ball>=(150) and (m_Action_Ball_Red_Step_01==0)):
                             m_Line_B_XD = 80
                             send_data('B')
                             # time.sleep(0.05)
@@ -427,16 +427,16 @@ while True:
 
                             if(m_Stop_Blue_Center_X<m_Line_A_X1):
                                 send_data('4') #4 #a
-                                if time.time() - last_cmd_time[2] > 0.02:
+                                if time.time() - last_cmd_time[2] > 0.05:
                                     send_data('B')
                                     last_cmd_time[2] = time.time()
                                     print("stop left")
                                 print("finding blue gate,turn left")
                                 
                                 
-                            elif(m_Line_A_X2<m_Stop_Blue_Center_X):
+                            elif(m_Line_A_X2-60<m_Stop_Blue_Center_X):
                                 send_data('6') #6 #d
-                                if time.time() - last_cmd_time[3] > 0.02:
+                                if time.time() - last_cmd_time[3] > 0.05:
                                     send_data('B')
                                     last_cmd_time[3] = time.time()
                                     print("stop right")
@@ -451,7 +451,7 @@ while True:
                                 print("The size of stop_blue is: " + str(m_Stop_Blue_Size))   
                                 print("The size of stop_blue height is: " + str(m_Stop_Blue_Size_Y))
                                 # send_data('B')  
-                                if(m_Stop_Blue_Size<240):
+                                if(m_Stop_Blue_Size<280):
                                 # if (m_Stop_Blue_Size_Y < 140):
                                     print("move forward to gate")
                                     send_data('8') #8 #w
